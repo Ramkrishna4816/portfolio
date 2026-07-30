@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Ramkrishna — Software Engineer | ML, Backend &amp; Connected Systems</title>
+<meta name="description" content="Portfolio of Ramkrishna, a software engineer who builds reinforcement-learning agents, backend services, and real-time data pipelines — built with connected-vehicle platforms like MotorQ in mind." />
+
+<!-- Fonts: Space Grotesk (display), IBM Plex Mono (telemetry/data), Inter (body) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<!-- Tailwind CDN (utility layer only — visual identity lives in styles.css) -->
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          base: '#0a0e14',
+          elevated: '#0f151d',
+          elevated2: '#141b25',
+          line: '#1f2a37',
+          teal: '#45e8c4',
+          amber: '#ff7a45',
+          txt: '#e7edf3',
+          txt2: '#8fa0b3',
+          txt3: '#566579',
+        },
+        fontFamily: {
+          display: ['"Space Grotesk"', 'sans-serif'],
+          mono: ['"IBM Plex Mono"', 'monospace'],
+          body: ['"Inter"', 'sans-serif'],
+        },
+      }
+    }
+  }
+</script>
+
+<!-- Lucide Icons -->
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body class="bg-base text-txt font-body antialiased">
+
+  <!-- ============ SIGNAL RAIL (signature element) ============ -->
+  <!-- A persistent left-edge telemetry readout that ticks as the visitor scrolls,
+       styled like a connected-vehicle dashboard trace. Desktop only. -->
+  <aside class="signal-rail" aria-hidden="true">
+    <div class="signal-rail__track"><div class="signal-rail__fill" id="railFill"></div></div>
+    <div class="signal-rail__readout">
+      <span class="signal-rail__label">SIG</span>
+      <span class="signal-rail__value" id="railSignal">98%</span>
+    </div>
+    <div class="signal-rail__readout">
+      <span class="signal-rail__label">SEC</span>
+      <span class="signal-rail__value" id="railSection">00 / 06</span>
+    </div>
+    <div class="signal-rail__readout">
+      <span class="signal-rail__label">LAT</span>
+      <span class="signal-rail__value" id="railLat">12.92°N</span>
+    </div>
+  </aside>
+
+  <!-- ============ NAV ============ -->
+  <header class="nav" id="nav">
+    <div class="nav__inner">
+      <a href="#top" class="nav__logo">
+        <span class="nav__logo-mark"></span>
+        RK<span class="text-teal">.</span>dev
+      </a>
+      <nav class="nav__links">
+        <a href="#about">About</a>
+        <a href="#expertise">Expertise</a>
+        <a href="#projects">Projects</a>
+        <a href="#stack">Stack</a>
+        <a href="#experience">Experience</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <a href="#contact" class="nav__cta">Let's talk</a>
+      <button class="nav__burger" id="navBurger" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <div class="nav__mobile" id="navMobile">
+      <a href="#about">About</a>
+      <a href="#expertise">Expertise</a>
+      <a href="#projects">Projects</a>
+      <a href="#stack">Stack</a>
+      <a href="#experience">Experience</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </header>
+
+  <main id="top">
+
+    <!-- ============ HERO ============ -->
+    <section class="hero">
+      <canvas id="pingCanvas" class="hero__canvas" aria-hidden="true"></canvas>
+      <div class="hero__grid" aria-hidden="true"></div>
+
+      <div class="hero__inner">
+        <div class="hero__copy reveal">
+          <p class="eyebrow"><span class="eyebrow__dot"></span> AVAILABLE FOR SDE INTERNSHIPS · 2026</p>
+          <h1 class="hero__title">
+            Software engineer,<br />
+            trained on <span class="text-teal">real-time data.</span>
+          </h1>
+          <p class="hero__sub">
+            I'm <strong class="text-txt">Ramkrishna</strong> — I build backend services,
+            reinforcement-learning agents, and data pipelines that keep working when the
+            traffic never stops. My focus: taking high-volume, high-frequency data — the
+            kind a fleet of connected vehicles generates every second — and getting it
+            through a system reliably, at scale.
+          </p>
+          <div class="hero__actions">
+            <a href="#projects" class="btn btn--primary">
+              View projects <i data-lucide="arrow-down-right" class="w-4 h-4"></i>
+            </a>
+            <a href="https://github.com/Ramkrishna4816" target="_blank" rel="noopener" class="btn btn--ghost">
+              <i data-lucide="github" class="w-4 h-4"></i> GitHub
+            </a>
+          </div>
+          <div class="hero__socials">
+            <a href="https://github.com/Ramkrishna4816" target="_blank" rel="noopener" aria-label="GitHub"><i data-lucide="github" class="w-[18px] h-[18px]"></i></a>
+            <a href="#contact" aria-label="Email"><i data-lucide="mail" class="w-[18px] h-[18px]"></i></a>
+          </div>
+        </div>
+
+        <!-- 3D orbiting node — CSS-only, represents a connected vehicle pinging a fleet network -->
+        <div class="orbit reveal" aria-hidden="true">
+          <div class="orbit__scene">
+            <div class="orbit__core">
+              <i data-lucide="radio-tower" class="w-6 h-6 text-teal"></i>
+            </div>
+            <div class="orbit__ring orbit__ring--1"><span class="orbit__pill" style="--i:0">Node.js</span><span class="orbit__pill" style="--i:1">Python</span></div>
+            <div class="orbit__ring orbit__ring--2"><span class="orbit__pill" style="--i:0">PostgreSQL</span><span class="orbit__pill" style="--i:1">React</span><span class="orbit__pill" style="--i:2">Docker</span></div>
+            <div class="orbit__ring orbit__ring--3"><span class="orbit__pill" style="--i:0">AWS</span><span class="orbit__pill" style="--i:1">Kafka</span><span class="orbit__pill" style="--i:2">RL&nbsp;Agents</span><span class="orbit__pill" style="--i:3">Java</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero__scroll" aria-hidden="true">
+        <span>SCROLL</span>
+        <div class="hero__scroll-line"></div>
+      </div>
+    </section>
+
+    <!-- ============ ABOUT ============ -->
+    <section id="about" class="section">
+      <div class="section__inner grid-2">
+        <div class="reveal about__lead">
+          <p class="eyebrow">01 · ABOUT</p>
+          <h2 class="section__title">I train systems<br class="hidden md:block" /> the way I train models.</h2>
+
+          <!-- Signature motif: a small feed-forward network — nodes/layers, drawn on
+               scroll-into-view. Reads as "neural network" and, just as easily, as a
+               live telemetry graph ingesting signals from many connected sources. -->
+          <figure class="mesh reveal" aria-hidden="true">
+            <svg viewBox="0 0 420 260" fill="none" xmlns="http://www.w3.org/2000/svg" class="mesh__svg">
+              <g class="mesh__edges" stroke="#45e8c4" stroke-width="1" opacity="0.5">
+                <!-- input layer (4) -> hidden layer (3) -->
+                <line x1="40" y1="40" x2="200" y2="50" /><line x1="40" y1="40" x2="200" y2="130" /><line x1="40" y1="40" x2="200" y2="210" />
+                <line x1="40" y1="100" x2="200" y2="50" /><line x1="40" y1="100" x2="200" y2="130" /><line x1="40" y1="100" x2="200" y2="210" />
+                <line x1="40" y1="160" x2="200" y2="50" /><line x1="40" y1="160" x2="200" y2="130" /><line x1="40" y1="160" x2="200" y2="210" />
+                <line x1="40" y1="220" x2="200" y2="50" /><line x1="40" y1="220" x2="200" y2="130" /><line x1="40" y1="220" x2="200" y2="210" />
+                <!-- hidden layer (3) -> output layer (2) -->
+                <line x1="200" y1="50" x2="380" y2="90" /><line x1="200" y1="50" x2="380" y2="170" />
+                <line x1="200" y1="130" x2="380" y2="90" /><line x1="200" y1="130" x2="380" y2="170" />
+                <line x1="200" y1="210" x2="380" y2="90" /><line x1="200" y1="210" x2="380" y2="170" />
+              </g>
+              <g class="mesh__nodes" fill="#45e8c4">
+                <circle cx="40" cy="40" r="4" /><circle cx="40" cy="100" r="4" /><circle cx="40" cy="160" r="4" /><circle cx="40" cy="220" r="4" />
+                <circle cx="200" cy="50" r="4.5" class="mesh__node--core" /><circle cx="200" cy="130" r="5" class="mesh__node--core" /><circle cx="200" cy="210" r="4.5" class="mesh__node--core" />
+                <circle cx="380" cy="90" r="4" /><circle cx="380" cy="170" r="4" />
+              </g>
+            </svg>
+            <figcaption>Input signals → learned weights → a decision. The same shape whether it's a neural net or a live telemetry pipeline.</figcaption>
+          </figure>
+        </div>
+        <div class="reveal">
+          <p class="body-lg">
+            I'm a backend-leaning software engineer with a strong pull toward
+            <span class="text-teal">machine learning, reinforcement learning, and distributed
+            systems</span>. I like the parts of engineering that involve a system learning
+            from feedback and adapting — an agent that gets better at routing traffic, a
+            model that improves without ever seeing raw user data, a pipeline that has to
+            stay correct under real load.
+          </p>
+          <p class="body-lg mt-5">
+            My reinforcement-learning routing engine trains a Q-learning agent to reroute
+            traffic across a volatile mesh network in real time, minimizing latency without
+            a central controller. My federated-learning project trains models across
+            distributed clients without ever centralizing their raw data. Both are, at
+            heart, the same problem MotorQ solves at scale: getting high-volume, real-time
+            signal — from a network, or from thousands of connected vehicles — through a
+            system that stays fast, correct, and private.
+          </p>
+          <p class="body-lg mt-5">
+            On the backend side, I build the APIs, services, and cloud infrastructure that
+            make that kind of intelligence usable — not just a notebook that works once.
+          </p>
+          <div class="about__stats">
+            <div><span class="about__num">10+</span><span class="about__label">GitHub repos shipped</span></div>
+            <div><span class="about__num">RL</span><span class="about__label">agents in production-style sims</span></div>
+            <div><span class="about__num">Full</span><span class="about__label">stack, backend + ML</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ EXPERTISE ============ -->
+    <section id="expertise" class="section section--elevated">
+      <div class="section__inner">
+        <p class="eyebrow reveal">02 · WHAT I DO</p>
+        <h2 class="section__title reveal">Five disciplines that meet at <span class="text-teal">real-time, connected data.</span></h2>
+
+        <div class="expertise-grid">
+          <article class="expertise-card reveal">
+            <div class="expertise-card__icon"><i data-lucide="brain-circuit" class="w-6 h-6"></i></div>
+            <h3>Machine Learning &amp; RL</h3>
+            <p>Reinforcement-learning agents and federated-learning setups that adapt from feedback — routing decisions, model updates, all learned rather than hardcoded.</p>
+            <div class="expertise-card__tags"><span>Reinforcement Learning</span><span>Federated Learning</span><span>Neural Networks</span></div>
+          </article>
+          <article class="expertise-card reveal">
+            <div class="expertise-card__icon"><i data-lucide="server" class="w-6 h-6"></i></div>
+            <h3>Backend Systems</h3>
+            <p>Designing services that stay predictable under load — job queues, caching layers, and state machines that don't fall over when traffic spikes.</p>
+            <div class="expertise-card__tags"><span>Node.js</span><span>Python</span><span>Java</span></div>
+          </article>
+          <article class="expertise-card reveal">
+            <div class="expertise-card__icon"><i data-lucide="plug-zap" class="w-6 h-6"></i></div>
+            <h3>Clean APIs</h3>
+            <p>REST and event-driven interfaces designed to be obvious to the next developer — versioned, documented, and boring in the best way.</p>
+            <div class="expertise-card__tags"><span>REST</span><span>GraphQL</span><span>OpenAPI</span></div>
+          </article>
+          <article class="expertise-card reveal">
+            <div class="expertise-card__icon"><i data-lucide="waypoints" class="w-6 h-6"></i></div>
+            <h3>Data &amp; Cloud Infrastructure</h3>
+            <p>Pipelines for high-frequency, high-volume streams — the same shape of problem as ingesting live telemetry from a fleet of connected vehicles.</p>
+            <div class="expertise-card__tags"><span>AWS</span><span>Kafka</span><span>PostgreSQL</span></div>
+          </article>
+          <article class="expertise-card reveal">
+            <div class="expertise-card__icon"><i data-lucide="layout-dashboard" class="w-6 h-6"></i></div>
+            <h3>Frontend &amp; Dashboards</h3>
+            <p>Interfaces built to make dense, real-time telemetry actually readable for the humans watching it — not just another chart.</p>
+            <div class="expertise-card__tags"><span>React</span><span>Tailwind</span><span>JavaScript</span></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ PROJECTS ============ -->
+    <section id="projects" class="section">
+      <div class="section__inner">
+        <div class="flex items-end justify-between flex-wrap gap-4">
+          <div class="reveal">
+            <p class="eyebrow">03 · PROJECTS</p>
+            <h2 class="section__title">Selected work, <span class="text-teal">pulled straight from GitHub.</span></h2>
+          </div>
+          <a href="https://github.com/Ramkrishna4816" target="_blank" rel="noopener" class="btn btn--ghost reveal">
+            All repositories <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+          </a>
+        </div>
+
+        <div class="project-grid">
+
+          <!-- Project 1 -->
+          <article class="project-card project-card--lg reveal" data-tilt>
+            <div class="project-card__glow"></div>
+            <div class="project-card__top">
+              <span class="project-card__tag">Featured · Reinforcement Learning</span>
+              <a href="https://github.com/Ramkrishna4816/rl-network-routing-engine" target="_blank" rel="noopener" aria-label="Open repository"><i data-lucide="arrow-up-right" class="w-5 h-5"></i></a>
+            </div>
+            <h3>RL Network Routing Engine</h3>
+            <p>A reinforcement-learning agent that routes traffic across a simulated, volatile
+              mesh network. It uses Q-learning to detect congestion and reroute data paths in
+              real time, minimizing latency without any central controller — the same class of
+              problem as keeping telemetry from a fleet of connected vehicles moving reliably
+              through a backend under load.</p>
+            <ul class="project-card__breakdown">
+              <li><i data-lucide="brain-circuit" class="w-4 h-4"></i> Q-learning agent learns routing policy purely from observed latency and reward — no hand-tuned rules</li>
+              <li><i data-lucide="git-fork" class="w-4 h-4"></i> Fully decentralized: each node reroutes on its own, with no central coordinator to bottleneck or fail</li>
+              <li><i data-lucide="gauge" class="w-4 h-4"></i> Simulates volatile mesh conditions to measure how fast the agent converges after congestion hits</li>
+            </ul>
+            <div class="project-card__stack"><span>Python</span><span>Q-Learning</span><span>Reinforcement Learning</span><span>Network Simulation</span></div>
+            <a href="https://github.com/Ramkrishna4816/rl-network-routing-engine" target="_blank" rel="noopener" class="project-card__link">View repository <i data-lucide="arrow-right" class="w-4 h-4"></i></a>
+          </article>
+
+          <!-- Project 2 -->
+          <article class="project-card project-card--lg reveal" data-tilt>
+            <div class="project-card__glow"></div>
+            <div class="project-card__top">
+              <span class="project-card__tag">Featured · Federated Learning</span>
+              <a href="https://github.com/Ramkrishna4816/rl-federated-learning" target="_blank" rel="noopener" aria-label="Open repository"><i data-lucide="arrow-up-right" class="w-5 h-5"></i></a>
+            </div>
+            <h3>RL Federated Learning</h3>
+            <p>Experiments combining reinforcement learning with a federated-learning setup —
+              training agents across distributed clients and aggregating their updates
+              centrally, without ever centralizing the clients' raw data.</p>
+            <ul class="project-card__breakdown">
+              <li><i data-lucide="share-2" class="w-4 h-4"></i> Each client trains locally on its own data; only model updates are shared, not raw records</li>
+              <li><i data-lucide="layers" class="w-4 h-4"></i> A central process aggregates updates into a shared model that improves across rounds</li>
+              <li><i data-lucide="shield-check" class="w-4 h-4"></i> Mirrors how a fleet of edge devices could improve a shared model without ever exposing raw telemetry</li>
+            </ul>
+            <div class="project-card__stack"><span>Python</span><span>Jupyter</span><span>Federated Learning</span><span>Distributed Systems</span></div>
+            <a href="https://github.com/Ramkrishna4816/rl-federated-learning" target="_blank" rel="noopener" class="project-card__link">View repository <i data-lucide="arrow-right" class="w-4 h-4"></i></a>
+          </article>
+
+          <!-- Project 3 -->
+          <article class="project-card reveal" data-tilt>
+            <div class="project-card__glow"></div>
+            <div class="project-card__top">
+              <span class="project-card__tag">Backend Tooling</span>
+              <a href="https://github.com/Ramkrishna4816/codebase-archaeologist" target="_blank" rel="noopener" aria-label="Open repository"><i data-lucide="arrow-up-right" class="w-5 h-5"></i></a>
+            </div>
+            <h3>Codebase Archaeologist</h3>
+            <p>A Python-based static analysis tool for digging into unfamiliar or legacy
+              codebases — building a dependency graph of the project so a new engineer can
+              see structure, entry points, and coupling at a glance instead of reading blind.</p>
+            <div class="project-card__stack"><span>Python</span><span>Static Analysis</span><span>Dependency Graphs</span></div>
+            <a href="https://github.com/Ramkrishna4816/codebase-archaeologist" target="_blank" rel="noopener" class="project-card__link">View repository <i data-lucide="arrow-right" class="w-4 h-4"></i></a>
+          </article>
+
+          <!-- Project 4 -->
+          <article class="project-card reveal" data-tilt>
+            <div class="project-card__glow"></div>
+            <div class="project-card__top">
+              <span class="project-card__tag">Frontend</span>
+              <a href="https://github.com/Ramkrishna4816/frontend_proj1" target="_blank" rel="noopener" aria-label="Open repository"><i data-lucide="arrow-up-right" class="w-5 h-5"></i></a>
+            </div>
+            <h3>Frontend Project One</h3>
+            <p>A JavaScript-driven frontend build used to practice component structure,
+              state handling, and clean UI patterns for surfacing live data — the same
+              instincts behind building a real-time telemetry dashboard.</p>
+            <div class="project-card__stack"><span>JavaScript</span><span>HTML/CSS</span></div>
+            <a href="https://github.com/Ramkrishna4816/frontend_proj1" target="_blank" rel="noopener" class="project-card__link">View repository <i data-lucide="arrow-right" class="w-4 h-4"></i></a>
+          </article>
+
+        </div>
+        <p class="project-note reveal">
+          <i data-lucide="info" class="w-4 h-4"></i>
+          Descriptions are summarized from public repo names/metadata — swap in your exact
+          README copy any time in <code>index.html</code>.
+        </p>
+      </div>
+    </section>
+
+    <!-- ============ TECH STACK ============ -->
+    <section id="stack" class="section section--elevated">
+      <div class="section__inner">
+        <p class="eyebrow reveal">04 · TECH STACK</p>
+        <h2 class="section__title reveal">The stack behind <span class="text-teal">learning &amp; scale.</span></h2>
+
+        <p class="stack-group__label stack-group__label--amber stack-group__label--first reveal">AI / ML &amp; Deep Learning</p>
+        <div class="stack-cloud stack-cloud--amber reveal" id="stackCloudMl">
+          <span class="stack-pill stack-pill--amber" style="--d:0"><i data-lucide="brain-circuit"></i>Reinforcement Learning</span>
+          <span class="stack-pill stack-pill--amber" style="--d:3"><i data-lucide="share-2"></i>Federated Learning</span>
+          <span class="stack-pill stack-pill--amber" style="--d:1"><i data-lucide="layers"></i>Neural Networks</span>
+          <span class="stack-pill stack-pill--amber" style="--d:5"><i data-lucide="flame"></i>PyTorch</span>
+          <span class="stack-pill stack-pill--amber" style="--d:2"><i data-lucide="cpu"></i>TensorFlow</span>
+          <span class="stack-pill stack-pill--amber" style="--d:6"><i data-lucide="target"></i>Q-Learning</span>
+          <span class="stack-pill stack-pill--amber" style="--d:4"><i data-lucide="sparkles"></i>Deep Learning</span>
+        </div>
+
+        <p class="stack-group__label reveal">Backend &amp; Cloud</p>
+        <div class="stack-cloud reveal" id="stackCloud">
+          <span class="stack-pill" style="--d:0"><i data-lucide="code-2"></i>Python</span>
+          <span class="stack-pill" style="--d:1"><i data-lucide="server"></i>Node.js</span>
+          <span class="stack-pill" style="--d:4"><i data-lucide="coffee"></i>Java</span>
+          <span class="stack-pill" style="--d:5"><i data-lucide="database"></i>PostgreSQL</span>
+          <span class="stack-pill" style="--d:12"><i data-lucide="workflow"></i>Kafka</span>
+          <span class="stack-pill" style="--d:7"><i data-lucide="container"></i>Docker</span>
+          <span class="stack-pill" style="--d:8"><i data-lucide="cloud"></i>AWS</span>
+          <span class="stack-pill" style="--d:10"><i data-lucide="webhook"></i>REST&nbsp;APIs</span>
+          <span class="stack-pill" style="--d:9"><i data-lucide="git-branch"></i>Git</span>
+          <span class="stack-pill" style="--d:11"><i data-lucide="cpu"></i>Linux</span>
+          <span class="stack-pill" style="--d:6"><i data-lucide="database-zap"></i>MongoDB</span>
+          <span class="stack-pill" style="--d:14"><i data-lucide="terminal"></i>C++</span>
+        </div>
+
+        <p class="stack-group__label reveal">Frontend</p>
+        <div class="stack-cloud reveal" id="stackCloudFe">
+          <span class="stack-pill" style="--d:2"><i data-lucide="atom"></i>React</span>
+          <span class="stack-pill" style="--d:0"><i data-lucide="paintbrush"></i>Tailwind CSS</span>
+          <span class="stack-pill" style="--d:3"><i data-lucide="braces"></i>JavaScript</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ EXPERIENCE / EDUCATION ============ -->
+    <section id="experience" class="section">
+      <div class="section__inner">
+        <p class="eyebrow reveal">05 · EXPERIENCE &amp; EDUCATION</p>
+        <h2 class="section__title reveal">The timeline <span class="text-teal">so far.</span></h2>
+
+        <div class="timeline">
+          <div class="timeline__line" aria-hidden="true"></div>
+
+          <div class="timeline__item reveal">
+            <div class="timeline__dot"></div>
+            <div class="timeline__content">
+              <span class="timeline__date">2026 — Present</span>
+              <h3>Software Development Intern</h3>
+              <p>Seeking an internship building backend services and real-time data
+                infrastructure for connected-vehicle platforms — applying the same
+                distributed-systems and ML thinking behind my routing and federated-learning
+                projects.</p>
+            </div>
+          </div>
+
+          <div class="timeline__item reveal">
+            <div class="timeline__dot"></div>
+            <div class="timeline__content">
+              <span class="timeline__date">Ongoing</span>
+              <h3>Independent Projects &amp; Research</h3>
+              <p>Built and shipped 10+ public repositories spanning reinforcement learning,
+                distributed routing simulations, federated learning, and frontend tooling.</p>
+            </div>
+          </div>
+
+          <div class="timeline__item reveal">
+            <div class="timeline__dot"></div>
+            <div class="timeline__content">
+              <span class="timeline__date">2022 — 2026</span>
+              <h3>B.Tech in Computer Science <span class="text-txt2">— VIT Chennai</span></h3>
+              <p>Coursework in data structures &amp; algorithms, operating systems, computer
+                networks, and machine learning.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CONTACT ============ -->
+    <section id="contact" class="section section--elevated">
+      <div class="section__inner grid-2">
+        <div class="reveal">
+          <p class="eyebrow">06 · CONTACT</p>
+          <h2 class="section__title">Building something at the edge of ML and mobility? <span class="text-teal">Let's talk.</span></h2>
+          <p class="body-lg mt-4">
+            I'm actively looking for a software development internship — MotorQ's work on
+            connected-car data is exactly the kind of problem I want to spend my next
+            internship on. Reach out directly or send a note below.
+          </p>
+          <div class="contact-links">
+            <a href="mailto:s.ramkrishna888888@gmail.com" class="contact-link">
+              <i data-lucide="mail" class="w-5 h-5"></i>
+              <span>s.ramkrishna888888@gmail.com</span>
+            </a>
+            <a href="https://github.com/Ramkrishna4816" target="_blank" rel="noopener" class="contact-link">
+              <i data-lucide="github" class="w-5 h-5"></i>
+              <span>github.com/Ramkrishna4816</span>
+            </a>
+          </div>
+        </div>
+
+        <form class="contact-form reveal" id="contactForm">
+          <div class="contact-form__row">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" placeholder="Jane Doe" required />
+          </div>
+          <div class="contact-form__row">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" placeholder="jane@company.com" required />
+          </div>
+          <div class="contact-form__row">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" rows="4" placeholder="Tell me about the role…" required></textarea>
+          </div>
+          <button type="submit" class="btn btn--primary w-full justify-center">
+            Send message <i data-lucide="send" class="w-4 h-4"></i>
+          </button>
+          <p class="contact-form__note" id="formNote"></p>
+        </form>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="footer">
+    <div class="footer__inner">
+      <div class="footer__brand">
+        <span class="nav__logo-mark"></span>
+        <span>RK<span class="text-teal">.</span>dev</span>
+      </div>
+      <p class="footer__note">Designed &amp; built with intent — for the internship at MotorQ.</p>
+      <div class="footer__links">
+        <a href="https://github.com/Ramkrishna4816" target="_blank" rel="noopener"><i data-lucide="github" class="w-[18px] h-[18px]"></i></a>
+        <a href="#contact"><i data-lucide="mail" class="w-[18px] h-[18px]"></i></a>
+        <a href="#top"><i data-lucide="arrow-up" class="w-[18px] h-[18px]"></i></a>
+      </div>
+    </div>
+    <p class="footer__copyright">© <span id="year"></span> Ramkrishna. All signals nominal.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
